@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public Transform player;
+
+    private float startPlayerHeight;
+    private float startCameraZ;
+
     void Start()
     {
-        
+        startPlayerHeight = player.position.y;
+        startCameraZ = transform.position.z;
     }
 
-    // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        
+        float heightDifference = player.position.y - startPlayerHeight;
+
+        Vector3 pos = transform.position;
+        pos.z = startCameraZ - heightDifference;
+
+        transform.position = pos;
     }
 }

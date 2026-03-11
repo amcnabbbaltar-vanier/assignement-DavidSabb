@@ -4,15 +4,33 @@ using UnityEngine;
 
 public class CharacterAnimator : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private Animator animator;
+    private Rigidbody rb;
+
+    public float moveInput;
+    public bool isGrounded;
     void Start()
     {
-        
+        animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        UpdateAnimator();
+    }
+
+    void UpdateAnimator()
+    {
+        // Update movement speed
+        animator.SetFloat("Speed", Mathf.Abs(moveInput));
+
+        // Update grounded state
+        animator.SetBool("isGrounded", isGrounded);
+    }
+
+    public void TriggerDoubleJump()
+    {
+        animator.SetTrigger("DoubleJump");
     }
 }
