@@ -17,12 +17,14 @@ public class CharacterMovement : MonoBehaviour
     public float minJumpForce = 5f;
     public float maxJumpForce = 12f;
     public float maxChargeTime = 3f;
+    public float maxJumpChargeTime = 1.5f;
 
     private Rigidbody rb;
     private bool isGrounded = true;
 
     private CharacterAnimator anim;
 
+    
     private float jumpChargeTime = 0f;
     private bool chargingJump = false;
 
@@ -35,9 +37,13 @@ public class CharacterMovement : MonoBehaviour
         jumpsRemaining = 1;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         Move();
+    }
+
+    void Update()
+    {
         HandleJumpCharge();
 
         anim.isGrounded = isGrounded;
@@ -52,21 +58,23 @@ public class CharacterMovement : MonoBehaviour
         float moveInput = 0f;
 
         if (Input.GetKey(KeyCode.LeftShift))
-        {
             speed = runSpeed;
-        }
+
+        Vector3 movement = Vector3.zero;
 
         if (Input.GetKey(KeyCode.D))
         {
-            transform.Translate(Vector3.forward * speed * Time.deltaTime);
+            movement += Vector3.right;
             moveInput = 1f;
         }
 
         if (Input.GetKey(KeyCode.A))
         {
-            transform.Translate(Vector3.back * speed * Time.deltaTime);
+            movement += Vector3.left;
             moveInput = 1f;
         }
+
+        rb.MovePosition(rb.position + movement * speed * Time.deltaTime);
 
         anim.moveInput = moveInput;
     }
@@ -96,7 +104,7 @@ public class CharacterMovement : MonoBehaviour
 
     void Jump()
     {
-        float chargePercent = Mathf.Clamp01(jumpChargeTime / maxChargeTime);
+        float chargePercent = Mathf.Clamp01(jumpChargeTime / maxJumpChargeTime);
         float jumpForce = Mathf.Lerp(minJumpForce, maxJumpForce, chargePercent);
 
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);

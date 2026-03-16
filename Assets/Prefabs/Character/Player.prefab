@@ -1682,6 +1682,7 @@ GameObject:
   - component: {fileID: 1027559884138143172}
   - component: {fileID: 5324611241291387476}
   - component: {fileID: 5350154158508262512}
+  - component: {fileID: -2618268376762587059}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1754,9 +1755,9 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!136 &5324611241291387476
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1794,7 +1795,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 5
   runSpeed: 10
-  jumpForce: 7
+  minJumpForce: 5
+  maxJumpForce: 12
+  maxChargeTime: 3
+--- !u!114 &-2618268376762587059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6799155194134901007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d651e16aa526f99468298bb4385df632, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 3
+  fallThreshold: -10
+  invincibilityDuration: 2
 --- !u!1 &6938777251474795721
 GameObject:
   m_ObjectHideFlags: 0

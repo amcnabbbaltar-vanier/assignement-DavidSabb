@@ -6,21 +6,19 @@ public class CameraFollow : MonoBehaviour
 {
     public Transform player;
 
-    private float startPlayerHeight;
     private float startCameraZ;
 
     void Start()
     {
-        startPlayerHeight = player.position.y;
         startCameraZ = transform.position.z;
     }
 
     void LateUpdate()
     {
-        float heightDifference = player.position.y - startPlayerHeight;
+        float distanceFromZero = Mathf.Abs(player.position.y);
 
         Vector3 pos = transform.position;
-        pos.z = startCameraZ - heightDifference;
+        pos.z = startCameraZ - distanceFromZero;
 
         transform.position = pos;
     }
